@@ -2,6 +2,52 @@
 Changelog for package kdl_parser
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.6.2 (2022-04-05)
+------------------
+* Depend on orocos-kdl vendor packages  (`#58 <https://github.com/ros/kdl_parser/issues/58>`_)
+* Contributors: Jacob Perron
+
+2.6.1 (2022-01-14)
+------------------
+* Install includes to include/ and misc CMake fixes (`#61 <https://github.com/ros/kdl_parser/issues/61>`_)
+* Contributors: Shane Loretz
+
+2.6.0 (2021-12-17)
+------------------
+* Update to uncrustify 0.72 (`#60 <https://github.com/ros/kdl_parser/issues/60>`_)
+* Contributors: Chris Lalancette
+
+2.5.0 (2020-10-05)
+------------------
+* Remove tinyxml dependency from kdl_parser. (`#43 <https://github.com/ros/kdl_parser/issues/43>`_)
+* Contributors: Chris Lalancette
+
+2.4.1 (2020-08-07)
+------------------
+* Remove unused find_library call (`#40 <https://github.com/ros/kdl_parser/issues/40>`_)
+* Contributors: Michael Carroll
+
+2.4.0 (2020-05-26)
+------------------
+* Deprecate treeFromXml (`#8 <https://github.com/ros2/kdl_parser/issues/8>`_)
+* Contributors: Dan Rose
+
+2.3.0 (2020-04-29)
+------------------
+* export targets in a addition to include directories / libraries (`#6 <https://github.com/ros2/kdl_parser/issues/6>`_)
+* code style only: wrap after open parenthesis if not in one line (`#5 <https://github.com/ros2/kdl_parser/issues/5>`_)
+* Contributors: Dirk Thomas
+
+2.2.0 (2018-11-20)
+------------------
+* Fix up missing link tags in some XML files. (`#15 <https://github.com/ros2/kdl_parser/issues/15>`_)
+* Contributors: Chris Lalancette
+
+2.1.0 (2018-06-26)
+------------------
+* point to the source and bugtracker used in ros2 (`#3 <https://github.com/ros2/kdl_parser/issues/3>`_)
+* Contributors: Mikael Arguedas
+
 1.12.10 (2017-05-17)
 --------------------
 * Use result of find_package(orocos_kdl) properly (`#200 <https://github.com/ros/robot_model/issues/200>`_)
