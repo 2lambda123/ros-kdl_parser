@@ -12,25 +12,22 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 
-add_library(
+add_library(${PROJECT_NAME} src/kdl_parser.cpp)
+target_include_directories(
   ${PROJECT_NAME}
-  src/kdl_parser.cpp)
-target_include_directories(${PROJECT_NAME} PUBLIC
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>"
-)
-target_link_libraries(${PROJECT_NAME} PUBLIC
-  orocos_kdl::orocos_kdl
-  urdfdom_headers::urdfdom_headers)
-target_link_libraries(${PROJECT_NAME} PRIVATE
-  urdf::urdf)
+  PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+         "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
+target_link_libraries(${PROJECT_NAME} PUBLIC orocos_kdl::orocos_kdl
+                                             urdfdom_headers::urdfdom_headers)
+target_link_libraries(${PROJECT_NAME} PRIVATE urdf::urdf)
 
 if(WIN32)
   target_compile_definitions(${PROJECT_NAME} PRIVATE "KDL_PARSER_BUILDING_DLL")
 endif()
 
 install(
-  TARGETS ${PROJECT_NAME} EXPORT export_${PROJECT_NAME}
+  TARGETS ${PROJECT_NAME}
+  EXPORT export_${PROJECT_NAME}
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin)
