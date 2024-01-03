@@ -48,76 +48,76 @@ char ** g_argv;
 class TestInertiaRPY : public testing::Test
 {
 public:
-  // NOLINT
+    // NOLINT
 
 protected:
-  /// constructor
-  TestInertiaRPY()
-  {
-  }
+    /// constructor
+    TestInertiaRPY()
+    {
+    }
 
-  /// Destructor
-  ~TestInertiaRPY()
-  {
-  }
+    /// Destructor
+    ~TestInertiaRPY()
+    {
+    }
 };
 
 
 TEST_F(TestInertiaRPY, test_torques) {
-  // workaround for segfault issue with parsing 2 trees instantiated on the stack
-  KDL::Tree * tree_1 = new KDL::Tree;
-  KDL::Tree * tree_2 = new KDL::Tree;
-  KDL::JntArray torques_1;
-  KDL::JntArray torques_2;
+    // workaround for segfault issue with parsing 2 trees instantiated on the stack
+    KDL::Tree * tree_1 = new KDL::Tree;
+    KDL::Tree * tree_2 = new KDL::Tree;
+    KDL::JntArray torques_1;
+    KDL::JntArray torques_2;
 
-  {
-    ASSERT_TRUE(kdl_parser::treeFromFile(g_argv[1], *tree_1));
-    KDL::Vector gravity(0, 0, -9.81);
-    KDL::Chain chain;
-    std::cout << "number of joints: " << tree_1->getNrOfJoints() << std::endl;
-    std::cout << "number of segments: " << tree_1->getNrOfSegments() << std::endl;
+    {
+        ASSERT_TRUE(kdl_parser::treeFromFile(g_argv[1], *tree_1));
+        KDL::Vector gravity(0, 0, -9.81);
+        KDL::Chain chain;
+        std::cout << "number of joints: " << tree_1->getNrOfJoints() << std::endl;
+        std::cout << "number of segments: " << tree_1->getNrOfSegments() << std::endl;
 
-    ASSERT_TRUE(tree_1->getChain("base_link", "link2", chain));
-    KDL::ChainIdSolver_RNE solver(chain, gravity);
-    KDL::JntArray q(chain.getNrOfJoints());
-    KDL::JntArray qdot(chain.getNrOfJoints());
-    KDL::JntArray qdotdot(chain.getNrOfJoints());
-    std::vector<KDL::Wrench> wrenches(chain.getNrOfJoints());
-    solver.CartToJnt(q, qdot, qdotdot, wrenches, torques_1);
+        ASSERT_TRUE(tree_1->getChain("base_link", "link2", chain));
+        KDL::ChainIdSolver_RNE solver(chain, gravity);
+        KDL::JntArray q(chain.getNrOfJoints());
+        KDL::JntArray qdot(chain.getNrOfJoints());
+        KDL::JntArray qdotdot(chain.getNrOfJoints());
+        std::vector<KDL::Wrench> wrenches(chain.getNrOfJoints());
+        solver.CartToJnt(q, qdot, qdotdot, wrenches, torques_1);
 
-    delete tree_1;
-    tree_1 = NULL;
-  }
+        delete tree_1;
+        tree_1 = NULL;
+    }
 
-  {
-    ASSERT_TRUE(kdl_parser::treeFromFile(g_argv[2], *tree_2));
-    KDL::Vector gravity(0, 0, -9.81);
-    KDL::Chain chain;
+    {
+        ASSERT_TRUE(kdl_parser::treeFromFile(g_argv[2], *tree_2));
+        KDL::Vector gravity(0, 0, -9.81);
+        KDL::Chain chain;
 
-    ASSERT_TRUE(tree_2->getChain("base_link", "link2", chain));
-    KDL::ChainIdSolver_RNE solver(chain, gravity);
-    KDL::JntArray q(chain.getNrOfJoints());
-    KDL::JntArray qdot(chain.getNrOfJoints());
-    KDL::JntArray qdotdot(chain.getNrOfJoints());
-    std::vector<KDL::Wrench> wrenches(chain.getNrOfJoints());
-    solver.CartToJnt(q, qdot, qdotdot, wrenches, torques_2);
+        ASSERT_TRUE(tree_2->getChain("base_link", "link2", chain));
+        KDL::ChainIdSolver_RNE solver(chain, gravity);
+        KDL::JntArray q(chain.getNrOfJoints());
+        KDL::JntArray qdot(chain.getNrOfJoints());
+        KDL::JntArray qdotdot(chain.getNrOfJoints());
+        std::vector<KDL::Wrench> wrenches(chain.getNrOfJoints());
+        solver.CartToJnt(q, qdot, qdotdot, wrenches, torques_2);
 
-    delete tree_2;
-    tree_2 = NULL;
-  }
+        delete tree_2;
+        tree_2 = NULL;
+    }
 
-  ASSERT_TRUE(torques_1 == torques_2);
+    ASSERT_TRUE(torques_1 == torques_2);
 
-  SUCCEED();
+    SUCCEED();
 }
 
 int main(int argc, char ** argv)
 {
-  testing::InitGoogleTest(&argc, argv);
-  for (size_t i = 0; i < argc; ++i) {
-    std::cout << argv[i] << std::endl;
-  }
-  g_argc = argc;
-  g_argv = argv;
-  return RUN_ALL_TESTS();
+    testing::InitGoogleTest(&argc, argv);
+    for (size_t i = 0; i < argc; ++i) {
+        std::cout << argv[i] << std::endl;
+    }
+    g_argc = argc;
+    g_argv = argv;
+    return RUN_ALL_TESTS();
 }

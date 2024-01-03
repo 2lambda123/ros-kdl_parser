@@ -45,44 +45,44 @@ char ** g_argv;
 class TestParser : public testing::Test
 {
 public:
-  KDL::Tree my_tree;
+    KDL::Tree my_tree;
 
 protected:
-  /// constructor
-  TestParser()
-  {
-  }
+    /// constructor
+    TestParser()
+    {
+    }
 
-  /// Destructor
-  ~TestParser()
-  {
-  }
+    /// Destructor
+    ~TestParser()
+    {
+    }
 };
 
 
 TEST_F(TestParser, test) {
-  for (int i = 1; i < g_argc - 2; i++) {
-    std::cerr << "Testing file " << g_argv[i] << std::endl;
-    ASSERT_FALSE(kdl_parser::treeFromFile(g_argv[i], my_tree));
-  }
+    for (int i = 1; i < g_argc - 2; i++) {
+        std::cerr << "Testing file " << g_argv[i] << std::endl;
+        ASSERT_FALSE(kdl_parser::treeFromFile(g_argv[i], my_tree));
+    }
 
-  ASSERT_TRUE(kdl_parser::treeFromFile(g_argv[g_argc - 1], my_tree));
-  ASSERT_EQ(8, my_tree.getNrOfJoints());
-  ASSERT_EQ(16, my_tree.getNrOfSegments());
-  ASSERT_TRUE(my_tree.getSegment("dummy_link") == my_tree.getRootSegment());
-  ASSERT_EQ((unsigned int)1, my_tree.getRootSegment()->second.children.size());
-  ASSERT_TRUE(my_tree.getSegment("base_link")->second.parent == my_tree.getRootSegment());
-  ASSERT_EQ(10.0, my_tree.getSegment("base_link")->second.segment.getInertia().getMass());
-  ASSERT_NEAR(
-    1.000, my_tree.getSegment(
-      "base_link")->second.segment.getInertia().getRotationalInertia().data[0], 0.001);
-  SUCCEED();
+    ASSERT_TRUE(kdl_parser::treeFromFile(g_argv[g_argc - 1], my_tree));
+    ASSERT_EQ(8, my_tree.getNrOfJoints());
+    ASSERT_EQ(16, my_tree.getNrOfSegments());
+    ASSERT_TRUE(my_tree.getSegment("dummy_link") == my_tree.getRootSegment());
+    ASSERT_EQ((unsigned int)1, my_tree.getRootSegment()->second.children.size());
+    ASSERT_TRUE(my_tree.getSegment("base_link")->second.parent == my_tree.getRootSegment());
+    ASSERT_EQ(10.0, my_tree.getSegment("base_link")->second.segment.getInertia().getMass());
+    ASSERT_NEAR(
+        1.000, my_tree.getSegment(
+            "base_link")->second.segment.getInertia().getRotationalInertia().data[0], 0.001);
+    SUCCEED();
 }
 
 int main(int argc, char ** argv)
 {
-  testing::InitGoogleTest(&argc, argv);
-  g_argc = argc;
-  g_argv = argv;
-  return RUN_ALL_TESTS();
+    testing::InitGoogleTest(&argc, argv);
+    g_argc = argc;
+    g_argv = argv;
+    return RUN_ALL_TESTS();
 }
